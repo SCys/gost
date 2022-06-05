@@ -1,7 +1,7 @@
 NAME=gost
 BINDIR=bin
 VERSION=$(shell cat gost.go | grep 'Version =' | sed 's/.*\"\(.*\)\".*/\1/g')
-GOBUILD=CGO_ENABLED=0 go build --ldflags="-s -w" -v -x -a
+GOBUILD=CGO_ENABLED=0 go build --ldflags="-s -w" -a
 GOFILES=cmd/gost/*.go
 
 PLATFORM_LIST = \
@@ -27,7 +27,8 @@ WINDOWS_ARCH_LIST = \
 	windows-386 \
 	windows-amd64
 
-all: linux-amd64 darwin-amd64 windows-amd64 # Most used
+all: linux-amd64 linux-armv8 linux-armv5 windows-amd64 # Most used
+	upx bin/*
 
 darwin-amd64:
 	GOARCH=amd64 GOOS=darwin $(GOBUILD) -o $(BINDIR)/$(NAME)-$@ $(GOFILES)

@@ -72,8 +72,8 @@ func (h *dnsHandler) Handle(conn net.Conn) {
 		log.Logf("[dns] %s - %s request unpack: %v", conn.RemoteAddr(), conn.LocalAddr(), err)
 		return
 	}
-	log.Logf("[dns] %s -> %s: %s", conn.RemoteAddr(), conn.LocalAddr(), h.dumpMsgHeader(mq))
 	if Debug {
+		log.Logf("[dns] %s -> %s: %s", conn.RemoteAddr(), conn.LocalAddr(), h.dumpMsgHeader(mq))
 		log.Logf("[dns] %s >>> %s: %s", conn.RemoteAddr(), conn.LocalAddr(), mq.String())
 	}
 
@@ -96,9 +96,9 @@ func (h *dnsHandler) Handle(conn net.Conn) {
 		log.Logf("[dns] %s - %s reply unpack: %v", conn.RemoteAddr(), conn.LocalAddr(), err)
 		return
 	}
-	log.Logf("[dns] %s <- %s: %s [%s]",
-		conn.RemoteAddr(), conn.LocalAddr(), h.dumpMsgHeader(mr), rtt)
 	if Debug {
+		log.Logf("[dns] %s <- %s: %s [%s]",
+			conn.RemoteAddr(), conn.LocalAddr(), h.dumpMsgHeader(mr), rtt)
 		log.Logf("[dns] %s <<< %s: %s", conn.RemoteAddr(), conn.LocalAddr(), mr.String())
 	}
 

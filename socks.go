@@ -885,8 +885,10 @@ func (h *socks5Handler) Handle(conn net.Conn) {
 func (h *socks5Handler) handleConnect(conn net.Conn, req *gosocks5.Request) {
 	host := req.Addr.String()
 
-	log.Logf("[socks5] %s -> %s -> %s",
-		conn.RemoteAddr(), h.options.Node.String(), host)
+	if Debug {
+		log.Logf("[socks5] %s -> %s -> %s",
+			conn.RemoteAddr(), h.options.Node.String(), host)
+	}
 
 	if !Can("tcp", host, h.options.Whitelist, h.options.Blacklist) {
 		log.Logf("[socks5] %s - %s : Unauthorized to tcp connect to %s",
@@ -972,9 +974,13 @@ func (h *socks5Handler) handleConnect(conn net.Conn, req *gosocks5.Request) {
 		log.Logf("[socks5] %s <- %s\n%s",
 			conn.RemoteAddr(), conn.LocalAddr(), rep)
 	}
-	log.Logf("[socks5] %s <-> %s", conn.RemoteAddr(), host)
+	if Debug {
+		log.Logf("[socks5] %s <-> %s", conn.RemoteAddr(), host)
+	}
 	transport(conn, cc)
-	log.Logf("[socks5] %s >-< %s", conn.RemoteAddr(), host)
+	if Debug {
+		log.Logf("[socks5] %s >-< %s", conn.RemoteAddr(), host)
+	}
 }
 
 func (h *socks5Handler) handleBind(conn net.Conn, req *gosocks5.Request) {
