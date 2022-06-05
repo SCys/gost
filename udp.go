@@ -151,7 +151,7 @@ func (l *udpListener) Addr() net.Addr {
 
 func (l *udpListener) Close() error {
 	err := l.ln.Close()
-	l.connMap.Range(func(k interface{}, v *udpServerConn) bool {
+	l.connMap.Range(func(k any, v *udpServerConn) bool {
 		v.Close()
 		return true
 	})
@@ -164,7 +164,7 @@ type udpConnMap struct {
 	m    sync.Map
 }
 
-func (m *udpConnMap) Get(key interface{}) (conn *udpServerConn, ok bool) {
+func (m *udpConnMap) Get(key any) (conn *udpServerConn, ok bool) {
 	v, ok := m.m.Load(key)
 	if ok {
 		conn, ok = v.(*udpServerConn)
@@ -172,18 +172,18 @@ func (m *udpConnMap) Get(key interface{}) (conn *udpServerConn, ok bool) {
 	return
 }
 
-func (m *udpConnMap) Set(key interface{}, conn *udpServerConn) {
+func (m *udpConnMap) Set(key any, conn *udpServerConn) {
 	m.m.Store(key, conn)
 	atomic.AddInt64(&m.size, 1)
 }
 
-func (m *udpConnMap) Delete(key interface{}) {
+func (m *udpConnMap) Delete(key any) {
 	m.m.Delete(key)
 	atomic.AddInt64(&m.size, -1)
 }
 
-func (m *udpConnMap) Range(f func(key interface{}, value *udpServerConn) bool) {
-	m.m.Range(func(k, v interface{}) bool {
+func (m *udpConnMap) Range(f func(key any, value *udpServerConn) bool) {
+	m.m.Range(func(k, v any) bool {
 		return f(k, v.(*udpServerConn))
 	})
 }

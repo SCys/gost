@@ -34,17 +34,17 @@ var (
 
 var (
 	sPool = sync.Pool{
-		New: func() interface{} {
+		New: func() any {
 			return make([]byte, smallBufferSize)
 		},
 	}
 	mPool = sync.Pool{
-		New: func() interface{} {
+		New: func() any {
 			return make([]byte, mediumBufferSize)
 		},
 	}
 	lPool = sync.Pool{
-		New: func() interface{} {
+		New: func() any {
 			return make([]byte, largeBufferSize)
 		},
 	}

@@ -779,7 +779,7 @@ func (l *udpRemoteForwardListener) Close() error {
 	case <-l.closed:
 		return nil
 	default:
-		l.connMap.Range(func(k interface{}, v *udpServerConn) bool {
+		l.connMap.Range(func(k any, v *udpServerConn) bool {
 			v.Close()
 			return true
 		})

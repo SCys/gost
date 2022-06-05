@@ -148,7 +148,7 @@ func (l *fakeTCPListener) Addr() net.Addr {
 
 func (l *fakeTCPListener) Close() error {
 	err := l.ln.Close()
-	l.connMap.Range(func(k interface{}, v *udpServerConn) bool {
+	l.connMap.Range(func(k any, v *udpServerConn) bool {
 		v.Close()
 		return true
 	})

@@ -20,9 +20,9 @@ import (
 	"github.com/go-log/log"
 
 	pt "git.torproject.org/pluggable-transports/goptlib.git"
+	dissector "github.com/go-gost/tls-dissector"
 	"gitlab.com/yawning/obfs4.git/transports/base"
 	"gitlab.com/yawning/obfs4.git/transports/obfs4"
-	dissector "github.com/go-gost/tls-dissector"
 )
 
 const (
@@ -667,7 +667,7 @@ func (c *obfsTLSConn) Write(b []byte) (n int, err error) {
 
 type obfs4Context struct {
 	cf    base.ClientFactory
-	cargs interface{} // type obfs4ClientArgs
+	cargs any // type obfs4ClientArgs
 	sf    base.ServerFactory
 	sargs *pt.Args
 }

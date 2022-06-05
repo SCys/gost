@@ -14,12 +14,12 @@ type LogLogger struct {
 }
 
 // Log uses the standard log library log.Output
-func (l *LogLogger) Log(v ...interface{}) {
+func (l *LogLogger) Log(v ...any) {
 	log.Output(3, fmt.Sprintln(v...))
 }
 
 // Logf uses the standard log library log.Output
-func (l *LogLogger) Logf(format string, v ...interface{}) {
+func (l *LogLogger) Logf(format string, v ...any) {
 	log.Output(3, fmt.Sprintf(format, v...))
 }
 
@@ -28,9 +28,9 @@ type NopLogger struct {
 }
 
 // Log does nothing
-func (l *NopLogger) Log(v ...interface{}) {
+func (l *NopLogger) Log(v ...any) {
 }
 
 // Logf does nothing
-func (l *NopLogger) Logf(format string, v ...interface{}) {
+func (l *NopLogger) Logf(format string, v ...any) {
 }

@@ -664,7 +664,7 @@ func (h *tapHandler) transportTap(tap net.Conn, conn net.PacketConn, raddr net.A
 
 				// server side, broadcast.
 				if waterutil.IsBroadcast(dst) {
-					go h.routes.Range(func(k, v interface{}) bool {
+					go h.routes.Range(func(k, v any) bool {
 						conn.WriteTo(b[:n], v.(net.Addr))
 						return true
 					})
@@ -732,7 +732,7 @@ func (h *tapHandler) transportTap(tap net.Conn, conn net.PacketConn, raddr net.A
 				}
 
 				if waterutil.IsBroadcast(dst) {
-					go h.routes.Range(func(k, v interface{}) bool {
+					go h.routes.Range(func(k, v any) bool {
 						if k.(tapRouteKey) != rkey {
 							conn.WriteTo(b[:n], v.(net.Addr))
 						}
